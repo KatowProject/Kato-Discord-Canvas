@@ -1,4 +1,4 @@
-const { loadImage, Canvas, createCanvas } = require('canvas');
+const { loadImage, createCanvas, CanvasRenderingContext2D } = require('canvas');
 
 class DonaturNotification {
     constructor() {
@@ -10,6 +10,15 @@ class DonaturNotification {
         this.nominal = null;
     }
 
+    /**
+     * Generate text
+     * @param {CanvasRenderingContext2D} ctx CanvasRenderingContext2D
+     * @param {[]} arr  Array of string
+     * @param {Number} height  Height of the text
+     * @param {String} template  Template of the text
+     * @param {Boolean} isLast  Is the last text
+     * @returns {void}
+     */
     _generateText(ctx, arr, height, template, isLast = false) {
         let j = 0;
         let i = 1;
@@ -29,31 +38,64 @@ class DonaturNotification {
         }
     }
 
+    /**
+     * Set username
+     * @param {String} username 
+     * @returns {void}
+     */
     setUsername(username) {
         this.username = username;
     }
 
+    /**
+     * Set support message
+     * @param {String} support_message 
+     * @returns {void}
+     */
     setSupportMessage(support_message) {
         this.support_message = support_message;
     }
 
+    /**
+     * Set donation
+     * @param {String} donation 
+     * @returns {void}
+     */
     setDonation(donation) {
         this.donation = donation;
     }
 
+    /**
+     * Set date
+     * @param {Date} date 
+     * @returns {void}
+     */
     setDate(date) {
         this.date = date;
     }
 
+    /**
+     * Set nominal
+     * @param {Number} nominal 
+     */
     setNominal(nominal) {
         this.nominal = nominal;
     }
 
+    /**
+     * @async Set avatar
+     * @param {String} avatar
+     * @returns {Promise<void>}
+     */
     async setAvatar(avatar) {
         if (!avatar.includes('http')) throw new Error('Avatar must be a valid URL');
         this.avatar = await loadImage(avatar);
     }
 
+    /**
+     * Generate image
+     * @returns {Promise<Buffer>}
+     */
     async generate() {
         if (
             !this.username ||

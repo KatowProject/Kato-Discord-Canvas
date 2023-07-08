@@ -15,19 +15,19 @@ for (const file of files) {
 
 class CanvasManager {
     /**
-     * 
-     * @param {String} type 
+     * Donatur Notification template
      * @returns {DonaturNotification}
      */
-    load(type) {
-        switch (type) {
-            case 'donatur-notification':
-                return new DonaturNotification();
-            case 'leaderboard-donatur':
-                return new LeaderboardDonatur();
-            default:
-                throw new Error('Invalid canvas type');
-        }
+    loadDonaturNotification() {
+        return new DonaturNotification();
+    }
+
+    /**
+     * Leaderboard Donatur template
+     * @returns {LeaderboardDonatur}
+     */
+    loadLeaderboardDonatur() {
+        return new LeaderboardDonatur();
     }
 }
 

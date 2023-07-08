@@ -1,6 +1,6 @@
 const DiscordCanvas = require('./index');
 const fs = require('fs');
-const donaturNotification = new DiscordCanvas().load('donatur-notification');
+const donaturNotification = new DiscordCanvas().loadDonaturNotification();
 
 (async () => {
     donaturNotification.setUsername('Rizky');
