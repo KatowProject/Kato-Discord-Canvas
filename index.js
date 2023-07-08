@@ -2,8 +2,8 @@ const { registerFont, Canvas } = require('canvas');
 const path = require('path');
 const fs = require('fs');
 
-const LeaderboardDonatur = require('./leaderboard-donatur');
-const DonaturNotification = require('./donatur-notification');
+const LeaderboardDonatur = require('./methods/leaderboard-donatur');
+const DonaturNotification = require('./methods/donatur-notification');
 
 const files = fs.readdirSync(path.join(__dirname, 'fonts'));
 for (const file of files) {

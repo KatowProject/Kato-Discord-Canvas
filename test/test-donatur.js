@@ -1,4 +1,4 @@
-const DiscordCanvas = require('./index');
+const DiscordCanvas = require('../index');
 const fs = require('fs');
 const donaturNotification = new DiscordCanvas().loadDonaturNotification();
 
@@ -14,9 +14,3 @@ const donaturNotification = new DiscordCanvas().loadDonaturNotification();
     const buffer = await donaturNotification.generate();
     fs.writeFileSync('test.png', buffer);
 })();
-
-
-const leaderboard = new DiscordCanvas().loadLeaderboard();
-(async () => {
-    
-})()
