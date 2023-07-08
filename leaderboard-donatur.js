@@ -1,5 +1,7 @@
 const { loadImage, createCanvas } = require('canvas');
 const moment = require('moment');
+const fs = require('fs');
+
 class LeaderboardDonatur {
     constructor() {
         this.donaturs = [];
@@ -17,7 +19,7 @@ class LeaderboardDonatur {
     setMonth(month) {
         if (month < 1 || month > 12) throw new Error('Month must be between 1 and 12');
 
-        this.month = moment().month(month - 1).format('MMMM');
+        this.month = moment().month(month - 1).format('MMMM').toUpperCase();
     }
 
     /**
@@ -47,7 +49,37 @@ class LeaderboardDonatur {
      * message.channel.send({ files: [attachment] });
      * 
     */
-    async generate() { }
+    async generate() { 
+        if (!this.month) throw new Error('Month is required');
+        if (!this.donaturs.length) throw new Error('Donatur is required');
+
+        const template = await loadImage('./templates/POS_Top_Donations.png');
+        const canvas = createCanvas(template.width, template.height);
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(template, 0, 0);
+
+        // draw month semi bold
+        ctx.font = '28pt Montserrat SemiBold';
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'center';
+        ctx.fillText(this.month + ' 2023', template.width / 2, 190);
+
+        // draw donatur
+        const donatur = this.donaturs[0];
+        const avatar = await loadImage(donatur.avatar);
+
+        ctx.font = '24pt Montserrat SemiBold';
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'center';
+        ctx.fillText(donatur.username, template.width / 2, 300);
+
+        // to buffer
+        const buffer = canvas.toBuffer('image/png');
+
+        fs.writeFileSync('test.png', buffer);
+        
+    } 
 }
 
 module.exports = LeaderboardDonatur;

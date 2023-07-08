@@ -14,3 +14,9 @@ const donaturNotification = new DiscordCanvas().loadDonaturNotification();
     const buffer = await donaturNotification.generate();
     fs.writeFileSync('test.png', buffer);
 })();
+
+
+const leaderboard = new DiscordCanvas().loadLeaderboard();
+(async () => {
+    
+})()
